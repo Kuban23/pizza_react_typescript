@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import PizzaBlock from './components/PizzaBlock/PizzaBlock';
 import Sort from './components/Sort/Sort';
 import './scss/app.scss';
+import itemsPizza from './assets/pizza.json';
 
 function App() {
    return (
@@ -25,7 +26,17 @@ function App() {
                <div className="content__items">
 
                   {/* Блок пицц */}
-                  <PizzaBlock />
+                 {itemsPizza.map((obj)=>
+                  <PizzaBlock 
+                  key={obj}
+                  imageUrl={obj.imageUrl}
+                  title={obj.title}
+                  price={obj.price}
+                  types={obj.types}
+                  sizes={obj.sizes}
+                  />
+                 )
+                 }
 
                </div>
             </div>
