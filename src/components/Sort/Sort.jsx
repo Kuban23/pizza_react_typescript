@@ -3,7 +3,7 @@ import React from 'react'
 const Sort = () => {
 
    // Состояние видимости попапа сортировки
-   const [isVisible, setIsVisible] = React.useState(true)
+   const [isVisible, setIsVisible] = React.useState(false)
 
    // Соятояние категорий пицц
    const [changeSort, setChangeSort] = React.useState(0)
