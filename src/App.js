@@ -16,7 +16,7 @@ function App() {
             <div className="container">
                <div className="content__top">
                   {/* категирии пицц */}
-                  <Categories />
+                  {/* <Categories /> */}
 
                   {/* сортировка */}
                   <Sort />
