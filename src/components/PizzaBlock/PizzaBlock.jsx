@@ -15,6 +15,7 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes }) => {
    ]
 
    return (
+      <div className='pizza-block-container'>
       <div className="pizza-block">
          <h4 className="pizza-block__title">{title}</h4>
          <img className="pizza-block__image"
@@ -47,6 +48,7 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes }) => {
                <i>2</i>
             </div>
          </div>
+      </div>
       </div>
    )
 }
