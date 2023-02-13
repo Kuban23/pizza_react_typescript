@@ -16,7 +16,7 @@ const Categories = () => {
    ];
 
    return (
-      <div class="categories">
+      <div className="categories">
          <ul>
 
             {categorArray.map((item, i) =>
