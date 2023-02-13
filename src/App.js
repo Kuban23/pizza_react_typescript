@@ -4,13 +4,30 @@ import Header from './components/Header/Header';
 import PizzaBlock from './components/PizzaBlock/PizzaBlock';
 import Sort from './components/Sort/Sort';
 import './scss/app.scss';
-import itemsPizza from './assets/pizza.json';
+// import itemsPizza from './assets/pizza.json';
 import Skeleton from './components/PizzaBlock/Skeleton';
 
 function App() {
 
    // Состояние лоадинга пицц
-   const [isLoading, setIsLoading] = React.useState(false)
+   const [isLoading, setIsLoading] = React.useState(true)
+
+   // Состояние запроса на сервер
+   const [getFetch, setGetFetch] = React.useState([])
+
+   // Запрос для загрузки пицц с сервера
+   React.useEffect(() => {
+
+      fetch('https://63e1085559bb472a742f0ab0.mockapi.io/items')
+         .then((res) => res.json())
+         .then((data) => {
+            setTimeout(() => {
+               setGetFetch(data)
+               setIsLoading(false)
+            }, 300)
+         })
+   }, [])
+
 
    return (
       <div className="wrapper">
@@ -30,7 +47,7 @@ function App() {
 
                   {isLoading ?
                      [...new Array(8)].map((_, i) => <Skeleton key={i} />)
-                     : itemsPizza.map((obj) =>
+                     : getFetch.map((obj) =>
                         <PizzaBlock
                            key={obj}
                            imageUrl={obj.imageUrl}
