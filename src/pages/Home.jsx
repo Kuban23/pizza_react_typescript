@@ -25,6 +25,7 @@ const Home = () => {
                setIsLoading(false)
             }, 300)
          })
+      window.scrollTo(0, 0)
    }, [])
 
 
