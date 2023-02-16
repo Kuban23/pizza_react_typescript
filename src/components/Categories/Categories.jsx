@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Categories = () => {
+const Categories = ({indexSort, setIndexSort}) => {
 
-   // Состояние индекса выбора типа сортировки
-   const [indexSort, setIndexSort] = React.useState(0)
+   // // Состояние индекса выбора типа сортировки по категориям
+   // const [indexSort, setIndexSort] = React.useState(0)
 
    // Создал массив категорий пицц
    const categorArray = [
