@@ -12,13 +12,19 @@ const Home = () => {
    // Состояние запроса на сервер, запрашиваю массив пицц
    const [getFetch, setGetFetch] = React.useState([])
 
-   // Состояние индекса выбора типа сортировки по категориям
+   // Состояние категории индекса типа сортировки пицц
    const [indexSort, setIndexSort] = React.useState(0);
+
+   // Соятояние сортировки пицц
+   const [changeSort, setChangeSort] = React.useState(
+      { name: 'популярности', sortProperty: 'rating' }
+   );
 
    // Запрос для загрузки пицц с сервера
    React.useEffect(() => {
 
-      fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?category=${indexSort}`)
+      fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''}
+      &sortBy=${changeSort.sortProperty}&order=desc`)
          .then((res) => res.json())
          .then((data) => {
             // setGetFetch(data)
@@ -29,7 +35,7 @@ const Home = () => {
             }, 300)
          })
       window.scrollTo(0, 0)
-   }, [indexSort])
+   }, [indexSort, changeSort])
 
 
    return (
@@ -41,7 +47,10 @@ const Home = () => {
                indexSort={indexSort}
                setIndexSort={setIndexSort}
             />
-            <Sort />
+            <Sort
+               changeSort={changeSort}
+               setChangeSort={setChangeSort}
+            />
          </div>
          <h2 className="content__title">Все пиццы</h2>
          <div className="content__items">

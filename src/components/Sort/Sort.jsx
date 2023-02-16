@@ -1,24 +1,20 @@
 import React from 'react'
 
-const Sort = () => {
+const Sort = ({ changeSort, setChangeSort }) => {
 
    // Состояние видимости попапа сортировки
    const [isVisible, setIsVisible] = React.useState(false)
 
-   // Соятояние категорий пицц
-   const [changeSort, setChangeSort] = React.useState(0)
-
    const sortArray = [
-      'популярности',
-      'цене',
-      'алфавиту',
+      { name: 'популярности', sortProperty: 'rating' },
+      { name: 'цене', sortProperty: 'price' },
+      { name: 'алфавиту', sortProperty: 'title' },
    ];
 
    const selectSort = (i) => {
       setChangeSort(i)
       setIsVisible(false)
    }
-
 
    return (
       <div className="sort">
@@ -36,17 +32,16 @@ const Sort = () => {
                />
             </svg>
             <b>Сортировка по:</b>
-            <span onClick={() => setIsVisible(!isVisible)}>{sortArray[changeSort]}</span>
+            <span onClick={() => setIsVisible(!isVisible)}>{changeSort.name}</span>
          </div>
-         {
-
-            isVisible &&
+         {isVisible &&
             <div className="sort__popup">
                <ul>
-              { sortArray.map((item, i) =>
-                  <li onClick={() => selectSort(i)} className={changeSort === i ? 'active' : ''}>{item}</li>
+                  {sortArray.map((obj, i) =>
+                     <li onClick={() => selectSort(obj)} className={changeSort.sortProperty === obj.sortProperty ? 'active' : ''}
+                      key={i}>{obj.name}</li>
                   )
-              }
+                  }
                </ul>
             </div>
          }
