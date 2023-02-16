@@ -6,10 +6,15 @@ const Sort = ({ changeSort, setChangeSort }) => {
    const [isVisible, setIsVisible] = React.useState(false)
 
    const sortArray = [
-      { name: 'популярности', sortProperty: 'rating' },
-      { name: 'цене', sortProperty: 'price' },
-      { name: 'алфавиту', sortProperty: 'title' },
+      { name: 'популярности (DESC)', sortProperty: 'rating' },
+      { name: 'популярности (ASC)', sortProperty: '-rating' },
+      { name: 'цене (DESC)', sortProperty: 'price' },
+      { name: 'цене (ASC)', sortProperty: '-price' },
+      { name: 'алфавиту (DESC)', sortProperty: 'title' },
+      { name: 'алфавиту (ASC)', sortProperty: '-title' },
    ];
+
+
 
    const selectSort = (i) => {
       setChangeSort(i)
@@ -39,7 +44,7 @@ const Sort = ({ changeSort, setChangeSort }) => {
                <ul>
                   {sortArray.map((obj, i) =>
                      <li onClick={() => selectSort(obj)} className={changeSort.sortProperty === obj.sortProperty ? 'active' : ''}
-                      key={i}>{obj.name}</li>
+                        key={i}>{obj.name}</li>
                   )
                   }
                </ul>

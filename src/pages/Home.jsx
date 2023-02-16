@@ -23,8 +23,9 @@ const Home = () => {
    // Запрос для загрузки пицц с сервера
    React.useEffect(() => {
 
-      fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''}
-      &sortBy=${changeSort.sortProperty}&order=desc`)
+      fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''
+         }&sortBy=${changeSort.sortProperty.replace('-', '')
+         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}`)
          .then((res) => res.json())
          .then((data) => {
             // setGetFetch(data)
