@@ -30,7 +30,7 @@ const Home = () => {
 
       fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''
          }&sortBy=${changeSort.sortProperty.replace('-', '')
-         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}`)
+         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}&search=${searchValue}`)
          .then((res) => res.json())
          .then((data) => {
             // setGetFetch(data)
@@ -41,26 +41,28 @@ const Home = () => {
             }, 300)
          })
       window.scrollTo(0, 0)
-   }, [indexSort, changeSort])
+   }, [indexSort, changeSort, searchValue])
 
 
    // Вынес логику итерации скелетона и массива пицц в переменные
    const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-   const getPizzas = getFetch.filter((item) => {
-      if (item.title.includes(searchValue)) {
-         return true;
-      }
-      return false;
-   }).map((obj) =>
-      <PizzaBlock
-         key={obj.id}
-         imageUrl={obj.imageUrl}
-         title={obj.title}
-         price={obj.price}
-         types={obj.types}
-         sizes={obj.sizes}
-      />
-   )
+   const getPizzas = getFetch
+      // .filter((item) => {
+      //    if (item.title.toLowerCase().includes(searchValue.toLowerCase())) {
+      //       return true;
+      //    }
+      //    return false;
+      // })
+      .map((obj) =>
+         <PizzaBlock
+            key={obj.id}
+            imageUrl={obj.imageUrl}
+            title={obj.title}
+            price={obj.price}
+            types={obj.types}
+            sizes={obj.sizes}
+         />
+      )
 
    return (
 
