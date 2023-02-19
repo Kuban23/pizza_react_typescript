@@ -1,5 +1,6 @@
 import React from 'react'
 import Categories from '../components/Categories/Categories'
+import Pagination from '../components/Pagination/Pagination'
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
@@ -16,21 +17,24 @@ const Home = () => {
    // Состояние категории индекса типа сортировки пицц
    const [indexSort, setIndexSort] = React.useState(0);
 
-   // Соятояние сортировки пицц
+   // Состояние сортировки пицц
    const [changeSort, setChangeSort] = React.useState(
       { name: 'популярности', sortProperty: 'rating' }
    );
 
-   // Контекст состяония инпута пицц
-   const { searchValue } = React.useContext(SearchContext);
+   // Состояние страниц для пагинации (mockapi не может давать данные сколько страниц осталось) 
+   // поэтому захардкожим кол-во страниц
+   const [currentPage, setCurrentPage] = React.useState(1);
 
+   // Контекст состояния инпута пицц
+   const { searchValue } = React.useContext(SearchContext);
 
    // Запрос для загрузки пицц с сервера
    React.useEffect(() => {
 
       fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''
          }&sortBy=${changeSort.sortProperty.replace('-', '')
-         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}&search=${searchValue}`)
+         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}&search=${searchValue}&page=${currentPage}&limit=4`)
          .then((res) => res.json())
          .then((data) => {
             // setGetFetch(data)
@@ -41,7 +45,7 @@ const Home = () => {
             }, 300)
          })
       window.scrollTo(0, 0)
-   }, [indexSort, changeSort, searchValue])
+   }, [indexSort, changeSort, searchValue, currentPage])
 
 
    // Вынес логику итерации скелетона и массива пицц в переменные
@@ -86,6 +90,9 @@ const Home = () => {
                : getPizzas
             }
          </div>
+         <Pagination
+            onChangePage={(nomberPage) => setCurrentPage(nomberPage)}
+         />
       </div>
 
    )
