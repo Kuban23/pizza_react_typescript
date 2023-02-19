@@ -6,28 +6,33 @@ import './scss/app.scss';
 import Home from './pages/Home';
 import Card from './pages/Card';
 import NotFound from './pages/NotFound';
+import { SearchContext } from './context';
 
 
 function App() {
 
-
-
+   //Состояние инпута поиска пицц
+   const [searchValue, setSearchValue] = React.useState('');
 
    return (
       <div className="wrapper">
-         <Header />
-         <div className="content">
+         <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+            <Header />
+            <div className="content">
 
-            <Routes>
-               <Route path='/' element={<Home />} />
-               <Route path='/card' element={<Card />} />
-               <Route path='*' element={<NotFound />} />
-            </Routes>
+               <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/card' element={<Card />} />
+                  <Route path='*' element={<NotFound />} />
+               </Routes>
 
-            {/* <Card/> 
+               {/* <Card/> 
             <NotFound/> */}
 
-         </div>
+            </div>
+
+         </SearchContext.Provider>
+
       </div>
 
    );

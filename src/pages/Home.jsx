@@ -3,6 +3,7 @@ import Categories from '../components/Categories/Categories'
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
+import { SearchContext } from '../context';
 
 const Home = () => {
 
@@ -19,6 +20,10 @@ const Home = () => {
    const [changeSort, setChangeSort] = React.useState(
       { name: 'популярности', sortProperty: 'rating' }
    );
+
+   // Контекст состяония инпута пицц
+   const { searchValue } = React.useContext(SearchContext);
+
 
    // Запрос для загрузки пицц с сервера
    React.useEffect(() => {
@@ -39,6 +44,24 @@ const Home = () => {
    }, [indexSort, changeSort])
 
 
+   // Вынес логику итерации скелетона и массива пицц в переменные
+   const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
+   const getPizzas = getFetch.filter((item) => {
+      if (item.title.includes(searchValue)) {
+         return true;
+      }
+      return false;
+   }).map((obj) =>
+      <PizzaBlock
+         key={obj.id}
+         imageUrl={obj.imageUrl}
+         title={obj.title}
+         price={obj.price}
+         types={obj.types}
+         sizes={obj.sizes}
+      />
+   )
+
    return (
 
       <div className="container">
@@ -55,18 +78,10 @@ const Home = () => {
          </div>
          <h2 className="content__title">Все пиццы</h2>
          <div className="content__items">
+
             {isLoading ?
-               [...new Array(8)].map((_, i) => <Skeleton key={i} />)
-               : getFetch.map((obj) =>
-                  <PizzaBlock
-                     key={obj.id}
-                     imageUrl={obj.imageUrl}
-                     title={obj.title}
-                     price={obj.price}
-                     types={obj.types}
-                     sizes={obj.sizes}
-                  />
-               )
+               skeletons
+               : getPizzas
             }
          </div>
       </div>
