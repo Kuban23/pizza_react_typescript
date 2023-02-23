@@ -9,7 +9,7 @@ const NotFoundBlock = () => {
          <h1>
             <span>:(</span>
             <br />
-            Ничего не найдено
+            Ничего не найдено, кликни по Логотипу...
          </h1>
          <p className={classes.description}>Данная страница отсутствует в нашем магазине </p>
       </div>

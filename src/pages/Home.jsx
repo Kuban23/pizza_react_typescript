@@ -1,10 +1,12 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Categories from '../components/Categories/Categories'
 import Pagination from '../components/Pagination/Pagination'
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
 import { SearchContext } from '../context';
+import { setIndexSort } from '../redux/slices/filterSlice'
 
 const Home = () => {
 
@@ -15,7 +17,7 @@ const Home = () => {
    const [getFetch, setGetFetch] = React.useState([])
 
    // Состояние категории индекса типа сортировки пицц
-   const [indexSort, setIndexSort] = React.useState(0);
+   //const [indexSort, setIndexSort] = React.useState(0);
 
    // Состояние сортировки пицц
    const [changeSort, setChangeSort] = React.useState(
@@ -28,6 +30,10 @@ const Home = () => {
 
    // Контекст состояния инпута пицц
    const { searchValue } = React.useContext(SearchContext);
+
+   // Вытаскиваю состяние категорий пицц из редакса слайса
+   const indexSort = useSelector((state) => state.filter.indexSort);
+   const dispatch = useDispatch();
 
    // Запрос для загрузки пицц с сервера
    React.useEffect(() => {
@@ -68,6 +74,13 @@ const Home = () => {
          />
       )
 
+      // Функция по смене категорий пицц
+const onChangeCategory=(i)=>{
+   dispatch(setIndexSort(i))
+}
+      
+
+
    return (
 
       <div className="container">
@@ -75,7 +88,7 @@ const Home = () => {
          <div className="content__top">
             <Categories
                indexSort={indexSort}
-               setIndexSort={setIndexSort}
+               setIndexSort={onChangeCategory}
             />
             <Sort
                changeSort={changeSort}
