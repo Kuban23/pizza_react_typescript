@@ -1,7 +1,17 @@
 import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import {setChangeSort} from '../../redux/slices/filterSlice';
+import { setChangeSort } from '../../redux/slices/filterSlice';
+
+
+const sortArray = [
+   { name: 'популярности (DESC)', sortProperty: 'rating' },
+   { name: 'популярности (ASC)', sortProperty: '-rating' },
+   { name: 'цене (DESC)', sortProperty: 'price' },
+   { name: 'цене (ASC)', sortProperty: '-price' },
+   { name: 'алфавиту (DESC)', sortProperty: 'title' },
+   { name: 'алфавиту (ASC)', sortProperty: '-title' },
+];
 
 const Sort = () => {
 
@@ -12,19 +22,8 @@ const Sort = () => {
    const changeSort = useSelector((state) => state.filter.changeSort);
    const dispatch = useDispatch();
 
-   const sortArray = [
-      { name: 'популярности (DESC)', sortProperty: 'rating' },
-      { name: 'популярности (ASC)', sortProperty: '-rating' },
-      { name: 'цене (DESC)', sortProperty: 'price' },
-      { name: 'цене (ASC)', sortProperty: '-price' },
-      { name: 'алфавиту (DESC)', sortProperty: 'title' },
-      { name: 'алфавиту (ASC)', sortProperty: '-title' },
-   ];
-
-
-
    const selectSort = (i) => {
-     dispatch(setChangeSort(i))
+      dispatch(setChangeSort(i))
       setIsVisible(false)
    }
 

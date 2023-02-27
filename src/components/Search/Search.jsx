@@ -7,6 +7,15 @@ const Search = () => {
 
    const { searchValue, setSearchValue } = React.useContext(SearchContext);
 
+   // Получаю ссылкеу на DOM элемент
+   const inputRef = React.useRef();
+
+   // Функция по очистке инпута и фокусировке курсора на input
+   const onClickClear = () => {
+      setSearchValue('');
+      inputRef.current.focus();
+   }
+
    return (
       <div className={classes.root}>
          <svg
@@ -22,6 +31,7 @@ const Search = () => {
             />
          </svg>
          <input
+            ref={inputRef}
             onChange={(event) => setSearchValue(event.target.value)}
             value={searchValue}
             className={classes.input}
@@ -29,7 +39,7 @@ const Search = () => {
             type="text"
          />
          <svg
-            onClick={() => setSearchValue('')}
+            onClick={onClickClear}
             className={classes.clearIcon}
             data-name="Capa 1"
             id="Capa_1"
