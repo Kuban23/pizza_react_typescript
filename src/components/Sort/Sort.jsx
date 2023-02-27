@@ -1,9 +1,16 @@
 import React from 'react'
 
-const Sort = ({ changeSort, setChangeSort }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import {setChangeSort} from '../../redux/slices/filterSlice';
+
+const Sort = () => {
 
    // Состояние видимости попапа сортировки
    const [isVisible, setIsVisible] = React.useState(false)
+
+   // Вытаскиваю состояние из redux
+   const changeSort = useSelector((state) => state.filter.changeSort);
+   const dispatch = useDispatch();
 
    const sortArray = [
       { name: 'популярности (DESC)', sortProperty: 'rating' },
@@ -17,7 +24,7 @@ const Sort = ({ changeSort, setChangeSort }) => {
 
 
    const selectSort = (i) => {
-      setChangeSort(i)
+     dispatch(setChangeSort(i))
       setIsVisible(false)
    }
 

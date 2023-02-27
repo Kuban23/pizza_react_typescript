@@ -20,9 +20,9 @@ const Home = () => {
    //const [indexSort, setIndexSort] = React.useState(0);
 
    // Состояние сортировки пицц
-   const [changeSort, setChangeSort] = React.useState(
-      { name: 'популярности', sortProperty: 'rating' }
-   );
+   // const [changeSort, setChangeSort] = React.useState(
+   //    { name: 'популярности', sortProperty: 'rating' }
+   // );
 
    // Состояние страниц для пагинации (mockapi не может давать данные сколько страниц осталось) 
    // поэтому захардкожим кол-во страниц
@@ -32,7 +32,7 @@ const Home = () => {
    const { searchValue } = React.useContext(SearchContext);
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
-   const indexSort = useSelector((state) => state.filter.indexSort);
+   const { indexSort, changeSort } = useSelector((state) => state.filter);
    const dispatch = useDispatch();
 
    // Запрос для загрузки пицц с сервера
@@ -74,12 +74,10 @@ const Home = () => {
          />
       )
 
-      // Функция по смене категорий пицц
-const onChangeCategory=(i)=>{
-   dispatch(setIndexSort(i))
-}
-      
-
+   // Функция по смене категорий пицц
+   const onChangeCategory = (i) => {
+      dispatch(setIndexSort(i))
+   }
 
    return (
 
@@ -90,10 +88,7 @@ const onChangeCategory=(i)=>{
                indexSort={indexSort}
                setIndexSort={onChangeCategory}
             />
-            <Sort
-               changeSort={changeSort}
-               setChangeSort={setChangeSort}
-            />
+            <Sort />
          </div>
          <h2 className="content__title">Все пиццы</h2>
          <div className="content__items">
