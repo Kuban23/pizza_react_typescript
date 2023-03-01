@@ -2,18 +2,39 @@ import React from 'react';
 
 import classes from './Search.module.scss';
 import { SearchContext } from '../../context';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
 
-   const { searchValue, setSearchValue } = React.useContext(SearchContext);
+   const { setSearchValue } = React.useContext(SearchContext);
 
-   // Получаю ссылкеу на DOM элемент
+   // Локальный стэйт для управляемого инпута
+   const [value, setValue] = React.useState('');
+
+   // Получаю ссылку на DOM элемент
    const inputRef = React.useRef();
 
    // Функция по очистке инпута и фокусировке курсора на input
    const onClickClear = () => {
       setSearchValue('');
+      setValue('');
       inputRef.current.focus();
+   }
+
+   // Функция для изменения состояния поиска в input, воспользовался useCallback чтобы при монтировании компоненты функция заомнила состояние
+   // при каждом изменении value будет отрабатывать setSearchValue с задержкой отправки запроса на сервер в 250 мсек.
+   const onChangeSearchValue = React.useCallback(
+      debounce((str) => {
+         setSearchValue(str)
+         console.log('задержка')
+      }, 250
+      ), []
+   );
+
+   // Функция для управляемого инпута
+   const onChangeInput = (event) => {
+      setValue(event.target.value);
+      onChangeSearchValue(event.target.value);
    }
 
    return (
@@ -32,8 +53,8 @@ const Search = () => {
          </svg>
          <input
             ref={inputRef}
-            onChange={(event) => setSearchValue(event.target.value)}
-            value={searchValue}
+            onChange={onChangeInput}
+            value={value}
             className={classes.input}
             placeholder="Поиск пицц..."
             type="text"
