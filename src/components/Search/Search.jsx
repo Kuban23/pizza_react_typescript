@@ -26,7 +26,7 @@ const Search = () => {
    const onChangeSearchValue = React.useCallback(
       debounce((str) => {
          setSearchValue(str)
-         console.log('задержка')
+        // console.log('задержка')
       }, 250
       ), []
    );

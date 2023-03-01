@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setChangeSort } from '../../redux/slices/filterSlice';
@@ -22,13 +23,34 @@ const Sort = () => {
    const changeSort = useSelector((state) => state.filter.changeSort);
    const dispatch = useDispatch();
 
+   // Получаю ссылку на div элемент с классом sort
+   const sortRef = React.useRef();
+
    const selectSort = (i) => {
-      dispatch(setChangeSort(i))
-      setIsVisible(false)
+      dispatch(setChangeSort(i));
+      setIsVisible(false);
    }
 
+   // Функция закрытия popup, отработка клика по body и нажатие клавиши Esc. 
+   const onClosePopup = (event) => {
+      if (!event.path.includes(sortRef.current) || event.key === 'Escape') {
+         //console.log("клик")
+         setIsVisible(false);
+      }
+   }
+
+   // Отслеживаю клик и клавишу Esc.
+   useEffect(() => {
+      document.body.addEventListener('click', onClosePopup)
+      document.body.addEventListener('keydown', onClosePopup)
+      return () => {
+         document.body.removeEventListener('click', onClosePopup)
+         document.body.removeEventListener('keydown', onClosePopup)
+      }
+   }, [])
+
    return (
-      <div className="sort">
+      <div className="sort" ref={sortRef}>
          <div className="sort__label">
             <svg
                width="10"
