@@ -1,10 +1,16 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logoPizza from '../../assets/img/pizza-logo.svg';
 import Search from '../Search/Search';
 
 const Header = () => {
+
+   //Вытаскиваю состояние из redux
+   const addItem = useSelector((state) => state.cart.items);
+   console.log(addItem)
+
    return (
       <div className="header">
          <div className="container">
@@ -49,7 +55,7 @@ const Header = () => {
                         strokeLinejoin="round"
                      />
                   </svg>
-                  <span>3</span>
+                  <span>{addItem.length}</span>
                </Link>
             </div>
          </div>

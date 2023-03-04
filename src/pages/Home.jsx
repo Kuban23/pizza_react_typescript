@@ -72,6 +72,7 @@ const Home = () => {
             price={obj.price}
             types={obj.types}
             sizes={obj.sizes}
+            id={obj.id}
          />
       )
 
