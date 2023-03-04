@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import './scss/app.scss';
 import Home from './pages/Home';
-import Card from './pages/Card';
+import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
 import { SearchContext } from './context';
 
@@ -22,7 +22,7 @@ function App() {
 
                <Routes>
                   <Route path='/' element={<Home />} />
-                  <Route path='/card' element={<Card />} />
+                  <Route path='/card' element={<Cart />} />
                   <Route path='*' element={<NotFound />} />
                </Routes>
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-function Card() {
+function Cart() {
    return (
       <div className="container container--cart">
          <div className="cart">
@@ -218,4 +218,4 @@ function Card() {
    )
 }
 
-export default Card
+export default Cart;
