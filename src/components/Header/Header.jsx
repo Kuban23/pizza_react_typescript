@@ -8,13 +8,13 @@ import Search from '../Search/Search';
 const Header = () => {
 
    // Вытаскиваю состояние из redux
-   const addItem = useSelector((state) => state.cart.items);
+   const addItems = useSelector((state) => state.cart.items);
 
    // Суммирую кол-ва пицц
-   const totalCount = addItem.reduce((sum, item) => {
+   const totalCount = addItems.reduce((sum, item) => {
       return sum + item.count
    }, 0);
-   console.log(addItem)
+   console.log(addItems)
 
    return (
       <div className="header">

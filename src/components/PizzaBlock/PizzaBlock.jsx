@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem } from '../../redux/slices/cartSlice';
 
@@ -7,10 +7,16 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes, id }) => {
    // Состояние типа пицц
    const [pizzaType, setPizzaType] = React.useState(0);
 
-   //Состояние размера пицц
+   // Состояние размера пицц
    const [pizzaSize, setPizzaSize] = React.useState(0);
 
-   const dispatch= useDispatch();
+   // Нахожу пиццу чтобы потом ее добавить на кнопку "Добавить"
+   const addedItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+
+   // Т.к. изначально в корзине undefined, приходится делать проверку иначе не смогу добавить пиццу в корзину
+   const addItems = addedItem ? addedItem.count : 0;
+
+   const dispatch = useDispatch();
 
    // Массива типов пицц
    const pizzaTypeArray = [
@@ -62,7 +68,9 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes, id }) => {
                         fill="white" />
                   </svg>
                   <span>Добавить</span>
-                  <i>2</i>
+                  {addItems > 0 &&
+                     <i>{addItems}</i>
+                  }
                </div>
             </div>
          </div>
