@@ -9,7 +9,20 @@ export const cartSlice = createSlice({
    initialState,
    reducers: {
       addItem: (state, action) => {
-         state.items.push(action.payload)
+         //Логика чтобы в корзину не добавлялись пиццы с одинаковыми id
+         // Нахожу пиццу с id аналогично переданной
+         const findItem = state.items.find((obj) => obj.id === action.payload.id)
+         // Если нашел, то присваиваю счетчик и прибавляю +1 иначе добавляю новую пиццу
+         if (findItem) {
+            findItem.count++
+         }
+         else {
+            state.items.push({
+               ...action.payload,
+               count: 1
+            })
+         }
+
       }
    }
 });

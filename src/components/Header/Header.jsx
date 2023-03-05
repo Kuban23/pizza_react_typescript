@@ -7,8 +7,13 @@ import Search from '../Search/Search';
 
 const Header = () => {
 
-   //Вытаскиваю состояние из redux
+   // Вытаскиваю состояние из redux
    const addItem = useSelector((state) => state.cart.items);
+
+   // Суммирую кол-ва пицц
+   const totalCount = addItem.reduce((sum, item) => {
+      return sum + item.count
+   }, 0);
    console.log(addItem)
 
    return (
@@ -55,7 +60,7 @@ const Header = () => {
                         strokeLinejoin="round"
                      />
                   </svg>
-                  <span>{addItem.length}</span>
+                  <span>{totalCount}</span>
                </Link>
             </div>
          </div>
