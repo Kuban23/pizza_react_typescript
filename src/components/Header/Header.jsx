@@ -9,6 +9,7 @@ const Header = () => {
 
    // Вытаскиваю состояние из redux
    const addItems = useSelector((state) => state.cart.items);
+   const totalPrice = useSelector((state) => state.cart.totalPrice);
 
    // Суммирую кол-ва пицц
    const totalCount = addItems.reduce((sum, item) => {
@@ -29,7 +30,7 @@ const Header = () => {
             <Search />
             <div className="header__cart">
                <Link to='/card' className="button button--cart" href="/cart.html">
-                  <span>520 ₽</span>
+                  <span>{totalPrice} ₽</span>
                   <div className="button__delimiter"></div>
                   <svg
                      width="18"
