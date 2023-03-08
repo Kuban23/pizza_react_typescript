@@ -15,7 +15,7 @@ const Header = () => {
    const totalCount = addItems.reduce((sum, item) => {
       return sum + item.count
    }, 0);
-   console.log(addItems)
+  // console.log(addItems)
 
    return (
       <div className="header">

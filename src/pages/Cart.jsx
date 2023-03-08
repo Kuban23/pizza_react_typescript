@@ -1,19 +1,32 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import CartEmpty from '../components/CartEmpty/CartEmpty';
 import CartItem from '../components/CartItem/CartItem';
+import { clearItem } from '../redux/slices/cartSlice';
 
 
 function Cart() {
    // Вытаскиваю состояние из redux
    const cartItem = useSelector((state) => state.cart.items);
-   const totalPrice= useSelector((state)=>state.cart.totalPrice);
+   const totalPrice = useSelector((state) => state.cart.totalPrice);
+   const dispatch = useDispatch();
 
    // Суммирую общее кол-во пицц и отображаю их 
-   const totalCountItem= cartItem.reduce((sum, item)=>{
+   const totalCountItem = cartItem.reduce((sum, item) => {
       return sum + item.count
-   },0);
+   }, 0);
+
+   // Функция очистки корзины
+   const onClickClearCart = () => {
+      dispatch(clearItem())
+   };
+
+   // Если корзина пуста, рендерю компонент с пустой страницей
+   if (!totalPrice) {
+      return <CartEmpty />
+   }
 
    return (
       <div className="container container--cart">
@@ -32,7 +45,7 @@ function Cart() {
                      <path d="M8.33337 9.16667V14.1667" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                      <path d="M11.6666 9.16667V14.1667" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span>Очистить корзину</span>
+                  <span onClick={onClickClearCart}>Очистить корзину</span>
                </div>
             </div>
             <div className="content__items">
@@ -45,6 +58,7 @@ function Cart() {
                      count={item.count}
                      price={item.price}
                      key={item.id}
+                     id={item.id}
                   />)
                }
 
