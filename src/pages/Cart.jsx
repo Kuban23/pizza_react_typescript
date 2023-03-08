@@ -8,6 +8,12 @@ import CartItem from '../components/CartItem/CartItem';
 function Cart() {
    // Вытаскиваю состояние из redux
    const cartItem = useSelector((state) => state.cart.items);
+   const totalPrice= useSelector((state)=>state.cart.totalPrice);
+
+   // Суммирую общее кол-во пицц и отображаю их 
+   const totalCountItem= cartItem.reduce((sum, item)=>{
+      return sum + item.count
+   },0);
 
    return (
       <div className="container container--cart">
@@ -45,8 +51,8 @@ function Cart() {
             </div>
             <div className="cart__bottom">
                <div className="cart__bottom-details">
-                  <span> Всего пицц: <b>3 шт.</b> </span>
-                  <span> Сумма заказа: <b>900 ₽</b> </span>
+                  <span> Всего пицц: <b>{totalCountItem} шт.</b> </span>
+                  <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                </div>
                <div className="cart__bottom-buttons">
                   <Link to="/" className="button button--outline button--add go-back-btn">
