@@ -8,6 +8,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
 import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
+import {setGetFetch} from '../redux/slices/pizzaSlice';
 
 const Home = () => {
 
@@ -15,7 +16,7 @@ const Home = () => {
    const [isLoading, setIsLoading] = React.useState(true)
 
    // Состояние запроса на сервер, запрашиваю массив пицц
-   const [getFetch, setGetFetch] = React.useState([])
+   //const [getFetch, setGetFetch] = React.useState([])
 
    // Состояние категории индекса типа сортировки пицц
    //const [indexSort, setIndexSort] = React.useState(0);
@@ -34,6 +35,7 @@ const Home = () => {
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
    const { indexSort, changeSort, currentPage } = useSelector((state) => state.filter);
+   const getFetch= useSelector((state)=>state.pizza.items);
    const dispatch = useDispatch();
 
    // Запрос для загрузки пицц с сервера
@@ -47,7 +49,7 @@ const Home = () => {
             // setGetFetch(data)
             // setIsLoading(false)
             setTimeout(() => {
-               setGetFetch(data)
+              dispatch(setGetFetch(data))
                setIsLoading(false)
             }, 300)
          })
