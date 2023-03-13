@@ -44,13 +44,5 @@ export const pizzaSlice = createSlice({
 
 });
 
-
-
-// extraReducers: {
-//    [fetchPizza.fulfilled]: (state, action) => {
-
-//    },
-// }
-
 export const { setGetFetch } = pizzaSlice.actions;
 export default pizzaSlice.reducer;

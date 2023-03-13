@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,13 +8,12 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
 import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
-import { setGetFetch } from '../redux/slices/pizzaSlice';
 import { fetchPizza } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
 
    // Состояние лоадинга пицц, для скелетона
-  // const [isLoading, setIsLoading] = React.useState(true)
+   // const [isLoading, setIsLoading] = React.useState(true)
 
    // Состояние запроса на сервер, запрашиваю массив пицц
    //const [getFetch, setGetFetch] = React.useState([])
@@ -45,14 +43,12 @@ const Home = () => {
    // Запрос на БЭК
    const getPizza = async () => {
 
-    dispatch(fetchPizza({
-      indexSort, 
-      changeSort, 
-      searchValue, 
-      currentPage
-   }))  
-      //dispatch(setGetFetch(res.data))
-     // setIsLoading(false)
+      dispatch(fetchPizza({
+         indexSort,
+         changeSort,
+         searchValue,
+         currentPage
+      }))
    };
 
 
@@ -61,7 +57,6 @@ const Home = () => {
       getPizza();
       window.scrollTo(0, 0)
    }, [indexSort, changeSort, searchValue, currentPage])
-
 
    // Вынес логику итерации скелетона и массива пицц в переменные
    const skeletons = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
@@ -106,13 +101,16 @@ const Home = () => {
             <Sort />
          </div>
          <h2 className="content__title">Все пиццы</h2>
-         <div className="content__items">
-
-            {status==='loading' ?
-               skeletons
-               : getPizzas
-            }
-         </div>
+         {/* Отрисовка пицц в случае ошибки и успеха */}
+         {status === 'error' ? (
+            <div className='content__error-info'>
+               <h2>Произошла ошибка 😕</h2>
+               <p>К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже.</p>
+            </div>
+         ) : (
+            //   Паказываю Скелетон или Пиццы 
+            <div className="content__items">{status === 'loading' ? skeletons : getPizzas}</div>
+         )}
          <Pagination
             onChangePage={onChangePage}
          />
