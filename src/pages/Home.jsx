@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,12 +9,13 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
 import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
-import {setGetFetch} from '../redux/slices/pizzaSlice';
+import { setGetFetch } from '../redux/slices/pizzaSlice';
+import { fetchPizza } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
 
    // Состояние лоадинга пицц, для скелетона
-   const [isLoading, setIsLoading] = React.useState(true)
+  // const [isLoading, setIsLoading] = React.useState(true)
 
    // Состояние запроса на сервер, запрашиваю массив пицц
    //const [getFetch, setGetFetch] = React.useState([])
@@ -35,24 +37,28 @@ const Home = () => {
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
    const { indexSort, changeSort, currentPage } = useSelector((state) => state.filter);
-   const getFetch= useSelector((state)=>state.pizza.items);
+   const getFetch = useSelector((state) => state.pizza.items);
+   const status = useSelector((state) => state.pizza.status);
    const dispatch = useDispatch();
 
-   // Запрос для загрузки пицц с сервера
-   React.useEffect(() => {
 
-      fetch(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${indexSort > 0 ? `category=${indexSort}` : ''
-         }&sortBy=${changeSort.sortProperty.replace('-', '')
-         }&order=${changeSort.sortProperty.includes('-') ? 'asc' : 'desc'}&search=${searchValue}&page=${currentPage}&limit=4`)
-         .then((res) => res.json())
-         .then((data) => {
-            // setGetFetch(data)
-            // setIsLoading(false)
-            setTimeout(() => {
-              dispatch(setGetFetch(data))
-               setIsLoading(false)
-            }, 300)
-         })
+   // Запрос на БЭК
+   const getPizza = async () => {
+
+    dispatch(fetchPizza({
+      indexSort, 
+      changeSort, 
+      searchValue, 
+      currentPage
+   }))  
+      //dispatch(setGetFetch(res.data))
+     // setIsLoading(false)
+   };
+
+
+   // Отслеживаю запрос для загрузки пицц с сервера
+   React.useEffect(() => {
+      getPizza();
       window.scrollTo(0, 0)
    }, [indexSort, changeSort, searchValue, currentPage])
 
@@ -102,7 +108,7 @@ const Home = () => {
          <h2 className="content__title">Все пиццы</h2>
          <div className="content__items">
 
-            {isLoading ?
+            {status==='loading' ?
                skeletons
                : getPizzas
             }
