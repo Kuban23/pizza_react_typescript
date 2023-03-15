@@ -11,7 +11,7 @@ import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
 import { fetchPizza } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
-
+   
    // Состояние лоадинга пицц, для скелетона
    // const [isLoading, setIsLoading] = React.useState(true)
 
@@ -31,12 +31,13 @@ const Home = () => {
    // const [currentPage, setCurrentPage] = React.useState(1);
 
    // Контекст состояния инпута пицц
-   const { searchValue } = React.useContext(SearchContext);
+ // const { searchValue } = React.useContext(SearchContext);
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
    const { indexSort, changeSort, currentPage } = useSelector((state) => state.filter);
    const getFetch = useSelector((state) => state.pizza.items);
    const status = useSelector((state) => state.pizza.status);
+   const searchValue = useSelector((state)=>state.filter.searchValue);
    const dispatch = useDispatch();
 
 
