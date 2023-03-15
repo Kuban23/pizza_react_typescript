@@ -6,7 +6,7 @@ import Pagination from '../components/Pagination/Pagination'
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import Sort from '../components/Sort/Sort'
-import { SearchContext } from '../context';
+//import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
 import { fetchPizza } from '../redux/slices/pizzaSlice';
 
