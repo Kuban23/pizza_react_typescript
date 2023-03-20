@@ -5,14 +5,14 @@ import { Link, useLocation } from 'react-router-dom';
 import logoPizza from '../../assets/img/pizza-logo.svg';
 import Search from '../Search/Search';
 
-const Header = () => {
+const Header: React.FC = () => {
 
    // Вытаскиваю состояние из redux
-   const addItems = useSelector((state) => state.cart.items);
-   const totalPrice = useSelector((state) => state.cart.totalPrice);
+   const addItems = useSelector((state: any) => state.cart.items);
+   const totalPrice = useSelector((state: any) => state.cart.totalPrice);
 
    // Суммирую кол-ва пицц
-   const totalCount = addItems.reduce((sum, item) => {
+   const totalCount = addItems.reduce((sum: number, item: any) => {
       return sum + item.count
    }, 0);
    // console.log(addItems)
@@ -35,7 +35,7 @@ const Header = () => {
             <Search />
             <div className="header__cart">
                {location.pathname !== '/cart' &&
-                  <Link to='/cart' className="button button--cart" href="/cart.html">
+                  <Link to='/cart' className="button button--cart">
                      <span>{totalPrice} ₽</span>
                      <div className="button__delimiter"></div>
                      <svg

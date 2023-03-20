@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useParams } from 'react-router-dom';
 
-const FullPizza:React.FC = () => {
+const FullPizza: React.FC = () => {
 
    // Состояние пиццы
    const [pizza, setPizza] = React.useState<{
