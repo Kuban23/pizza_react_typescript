@@ -10,8 +10,8 @@ import Sort from '../components/Sort/Sort'
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
 import { fetchPizza } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
-   
+const Home: React.FC = () => {
+
    // Состояние лоадинга пицц, для скелетона
    // const [isLoading, setIsLoading] = React.useState(true)
 
@@ -31,25 +31,27 @@ const Home = () => {
    // const [currentPage, setCurrentPage] = React.useState(1);
 
    // Контекст состояния инпута пицц
- // const { searchValue } = React.useContext(SearchContext);
+   // const { searchValue } = React.useContext(SearchContext);
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
-   const { indexSort, changeSort, currentPage } = useSelector((state) => state.filter);
-   const getFetch = useSelector((state) => state.pizza.items);
-   const status = useSelector((state) => state.pizza.status);
-   const searchValue = useSelector((state)=>state.filter.searchValue);
+   const { indexSort, changeSort, currentPage } = useSelector((state: any) => state.filter);
+   const getFetch = useSelector((state: any) => state.pizza.items);
+   const status = useSelector((state: any) => state.pizza.status);
+   const searchValue = useSelector((state: any) => state.filter.searchValue);
    const dispatch = useDispatch();
 
 
    // Запрос на БЭК
    const getPizza = async () => {
 
-      dispatch(fetchPizza({
-         indexSort,
-         changeSort,
-         searchValue,
-         currentPage
-      }))
+      dispatch(
+         //@ts-ignore
+         fetchPizza({
+            indexSort,
+            changeSort,
+            searchValue,
+            currentPage
+         }))
    };
 
 
@@ -68,7 +70,7 @@ const Home = () => {
       //    }
       //    return false;
       // })
-      .map((obj) =>
+      .map((obj: any) =>
          <PizzaBlock
             key={obj.id}
             imageUrl={obj.imageUrl}
@@ -81,12 +83,12 @@ const Home = () => {
       )
 
    // Функция по смене категорий пицц
-   const onChangeCategory = (i) => {
+   const onChangeCategory = (i: number) => {
       dispatch(setIndexSort(i))
    }
 
    // Функция пагинации, заменил setCurrentPage
-   const onChangePage = (nomberPage) => {
+   const onChangePage = (nomberPage: number) => {
       dispatch(setCurrentPage(nomberPage))
    }
 

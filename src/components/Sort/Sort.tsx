@@ -4,8 +4,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChangeSort } from '../../redux/slices/filterSlice';
 
+type SortItem = {
+   name: string;
+   sortProperty: string;
+};
 
-const sortArray = [
+const sortArray: SortItem[] = [
    { name: 'популярности (DESC)', sortProperty: 'rating' },
    { name: 'популярности (ASC)', sortProperty: '-rating' },
    { name: 'цене (DESC)', sortProperty: 'price' },
@@ -20,19 +24,19 @@ const Sort = () => {
    const [isVisible, setIsVisible] = React.useState(false)
 
    // Вытаскиваю состояние из redux
-   const changeSort = useSelector((state) => state.filter.changeSort);
+   const changeSort = useSelector((state: any) => state.filter.changeSort);
    const dispatch = useDispatch();
 
    // Получаю ссылку на div элемент с классом sort
-   const sortRef = React.useRef();
+   const sortRef = React.useRef<HTMLDivElement>(null);
 
-   const selectSort = (i) => {
+   const selectSort = (i: SortItem) => {
       dispatch(setChangeSort(i));
       setIsVisible(false);
    }
 
    // Функция закрытия popup, отработка клика по body и нажатие клавиши Esc. 
-   const onClosePopup = (event) => {
+   const onClosePopup = (event: any) => {
       if (!event.path.includes(sortRef.current) || event.key === 'Escape') {
          //console.log("клик")
          setIsVisible(false);

@@ -1,4 +1,5 @@
 import React from 'react';
+//@ts-ignore
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
 
@@ -6,7 +7,7 @@ import classes from './Search.module.scss';
 // import { SearchContext } from '../../context';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 
-const Search = () => {
+const Search: React.FC = () => {
 
    // const { setSearchValue } = React.useContext(SearchContext);
    const dispatch = useDispatch();
@@ -15,19 +16,21 @@ const Search = () => {
    const [value, setValue] = React.useState('');
 
    // Получаю ссылку на DOM элемент
-   const inputRef = React.useRef();
+   const inputRef = React.useRef<HTMLInputElement>(null);
 
    // Функция по очистке инпута и фокусировке курсора на input
    const onClickClear = () => {
       dispatch(setSearchValue(''));
       setValue('');
-      inputRef.current.focus();
+      if (inputRef.current) {
+         inputRef.current.focus();
+      }
    }
 
    // Функция для изменения состояния поиска в input, воспользовался useCallback чтобы при монтировании компоненты функция заомнила состояние
    // при каждом изменении value будет отрабатывать setSearchValue с задержкой отправки запроса на сервер в 250 мсек.
    const onChangeSearchValue = React.useCallback(
-      debounce((str) => {
+      debounce((str: string) => {
          dispatch(setSearchValue(str));
          // console.log('задержка')
       }, 250
@@ -35,7 +38,7 @@ const Search = () => {
    );
 
    // Функция для управляемого инпута
-   const onChangeInput = (event) => {
+   const onChangeInput = (event: any) => {
       setValue(event.target.value);
       onChangeSearchValue(event.target.value);
    }

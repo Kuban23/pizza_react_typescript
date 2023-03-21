@@ -1,7 +1,6 @@
 import React from 'react';
 
 
-// Типизирую пропсы
 type CategoriesProps = {
    indexSort: number;
    setIndexSort: any;

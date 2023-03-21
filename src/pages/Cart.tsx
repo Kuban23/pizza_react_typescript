@@ -7,14 +7,14 @@ import CartItem from '../components/CartItem/CartItem';
 import { clearItem } from '../redux/slices/cartSlice';
 
 
-function Cart() {
+const Cart: React.FC = () => {
    // Вытаскиваю состояние из redux
-   const cartItem = useSelector((state) => state.cart.items);
-   const totalPrice = useSelector((state) => state.cart.totalPrice);
+   const cartItem = useSelector((state: any) => state.cart.items);
+   const totalPrice = useSelector((state: any) => state.cart.totalPrice);
    const dispatch = useDispatch();
 
    // Суммирую общее кол-во пицц и отображаю их 
-   const totalCountItem = cartItem.reduce((sum, item) => {
+   const totalCountItem = cartItem.reduce((sum: number, item: any) => {
       return sum + item.count
    }, 0);
 
@@ -49,7 +49,7 @@ function Cart() {
                </div>
             </div>
             <div className="content__items">
-               {cartItem.map((item) =>
+               {cartItem.map((item: any) =>
                   < CartItem
                      imageUrl={item.imageUrl}
                      title={item.title}

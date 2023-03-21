@@ -4,7 +4,18 @@ import { Link } from 'react-router-dom';
 
 import { addItem } from '../../redux/slices/cartSlice';
 
-const PizzaBlock = ({ imageUrl, title, price, types, sizes, id }) => {
+// Типизирую пропсы
+type PizzaBlockProps = {
+   imageUrl: string;
+   title: string;
+   price: number;
+   types: number[];
+   sizes: number[];
+   id: string;
+};
+
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ imageUrl, title, price, types, sizes, id }) => {
    // Состояние типа пицц
    const [pizzaType, setPizzaType] = React.useState(0);
 
@@ -12,7 +23,7 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes, id }) => {
    const [pizzaSize, setPizzaSize] = React.useState(0);
 
    // Нахожу пиццу чтобы потом ее добавить на кнопку "Добавить"
-   const addedItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+   const addedItem = useSelector((state:any) => state.cart.items.find((obj:any) => obj.id === id));
 
    // Т.к. изначально в корзине undefined, приходится делать проверку иначе не смогу добавить пиццу в корзину
    const addItems = addedItem ? addedItem.count : 0;
@@ -38,7 +49,7 @@ const PizzaBlock = ({ imageUrl, title, price, types, sizes, id }) => {
       dispatch(addItem(item))
    };
 
-   
+
 
    return (
       <div className='pizza-block-container'>
