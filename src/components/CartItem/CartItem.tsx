@@ -66,7 +66,7 @@ const CartItem: React.FC<CartItemProps> = ({ imageUrl, title, type, size, count,
                </div>
             </div>
             <div className="cart__item-price">
-               <b>{price} ₽</b>
+               <b>{price*count} ₽</b>
             </div>
             <div className="cart__item-remove">
                <div onClick={onClickRemoveItem} className="button button--outline button--circle">
