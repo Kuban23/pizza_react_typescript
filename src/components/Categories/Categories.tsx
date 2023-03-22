@@ -3,7 +3,7 @@ import React from 'react';
 
 type CategoriesProps = {
    indexSort: number;
-   setIndexSort: any;
+   setIndexSort: (i:number) => void;
 };
 
 const Categories: React.FC<CategoriesProps> = ({ indexSort, setIndexSort }) => {

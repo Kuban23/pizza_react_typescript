@@ -36,8 +36,25 @@ const Sort = () => {
    }
 
    // Функция закрытия popup, отработка клика по body и нажатие клавиши Esc. 
-   const onClosePopup = (event: any) => {
-      if (!event.path.includes(sortRef.current) || event.key === 'Escape') {
+   const onClickClosePopup = (event: MouseEvent) => {
+      // if (!event.path.includes(sortRef.current) || event.key === 'Escape')
+      const _event = event as MouseEvent & {
+         path: Node[]
+         key: string
+      }
+      if (sortRef.current && !_event.path.includes(sortRef.current) || _event.key === 'Escape') {
+         //console.log("клик")
+         setIsVisible(false);
+      }
+   }
+
+   // Функция закрытия popup, по нажатии клавиши Esc.
+   const onKeydownClosePopup = (event: KeyboardEvent) => {
+      // if (!event.path.includes(sortRef.current) || event.key === 'Escape')
+      const _event = event as KeyboardEvent & {
+         key: string
+      }
+      if (_event.key === 'Escape') {
          //console.log("клик")
          setIsVisible(false);
       }
@@ -45,11 +62,11 @@ const Sort = () => {
 
    // Отслеживаю клик и клавишу Esc.
    useEffect(() => {
-      document.body.addEventListener('click', onClosePopup)
-      document.body.addEventListener('keydown', onClosePopup)
+      document.body.addEventListener('click', onClickClosePopup)
+      document.body.addEventListener('keydown', onKeydownClosePopup)
       return () => {
-         document.body.removeEventListener('click', onClosePopup)
-         document.body.removeEventListener('keydown', onClosePopup)
+         document.body.removeEventListener('click', onClickClosePopup)
+         document.body.removeEventListener('keydown', onKeydownClosePopup)
       }
    }, [])
 

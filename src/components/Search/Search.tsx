@@ -38,7 +38,7 @@ const Search: React.FC = () => {
    );
 
    // Функция для управляемого инпута
-   const onChangeInput = (event: any) => {
+   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
       setValue(event.target.value);
       onChangeSearchValue(event.target.value);
    }
