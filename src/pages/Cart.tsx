@@ -15,7 +15,7 @@ const Cart: React.FC = () => {
    const dispatch = useDispatch();
 
    // Суммирую общее кол-во пицц и отображаю их 
-   const totalCountItem = cartItem.reduce((sum: number, item: any) => {
+   const totalCountItem = cartItem.reduce((sum: number, item) => {
       return sum + item.count
    }, 0);
 

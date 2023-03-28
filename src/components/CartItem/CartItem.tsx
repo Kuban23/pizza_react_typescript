@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
+import { addItem, CartItem as CartItemType, minusItem, removeItem } from '../../redux/slices/cartSlice';
 
 type CartItemProps = {
    imageUrl: string;
@@ -18,12 +18,12 @@ const CartItem: React.FC<CartItemProps> = ({ imageUrl, title, type, size, count,
 
    // Функция увеличения кол-ва пицц в корзине
    const onClickItemPlus = () => {
-      dispatch(addItem({ id: id }))
+      dispatch(addItem({ id} as CartItemType))
    };
 
    // Функция уменьшения кол-ва пицц в корзине
    const onClickItemMinus = () => {
-      dispatch(minusItem({ id: id }))
+      dispatch(minusItem(id))
    };
 
    // Функция удаления пицц из корзины
@@ -66,7 +66,7 @@ const CartItem: React.FC<CartItemProps> = ({ imageUrl, title, type, size, count,
                </div>
             </div>
             <div className="cart__item-price">
-               <b>{price*count} ₽</b>
+               <b>{price * count} ₽</b>
             </div>
             <div className="cart__item-remove">
                <div onClick={onClickRemoveItem} className="button button--outline button--circle">

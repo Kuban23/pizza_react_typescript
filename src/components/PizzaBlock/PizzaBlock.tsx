@@ -23,7 +23,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ imageUrl, title, price, types, 
    const [pizzaSize, setPizzaSize] = React.useState(0);
 
    // Нахожу пиццу чтобы потом ее добавить на кнопку "Добавить"
-   const addedItem = useSelector((state:any) => state.cart.items.find((obj:any) => obj.id === id));
+   const addedItem = useSelector((state: any) => state.cart.items.find((obj: any) => obj.id === id));
 
    // Т.к. изначально в корзине undefined, приходится делать проверку иначе не смогу добавить пиццу в корзину
    const addItems = addedItem ? addedItem.count : 0;
@@ -44,7 +44,8 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ imageUrl, title, price, types, 
          price,
          imageUrl,
          type: pizzaTypeArray[pizzaType],
-         size: sizes[pizzaSize]
+         size: sizes[pizzaSize],
+         count: 0,
       }
       dispatch(addItem(item))
    };

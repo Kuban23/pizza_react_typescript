@@ -1,6 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState = {
+// Типизирую item для дальнейшей передачи в стэйт 
+export type CartItem = {
+   id: string;
+   title: string;
+   price: number;
+   imageUrl: string;
+   type: string;
+   size: number;
+   count: number;
+};
+
+// Типизирую стэйт
+interface CartSliceState{
+   items: CartItem[],
+   totalPrice: number,
+};
+
+
+const initialState:CartSliceState = {
    items: [],
    totalPrice: 0,
 }
@@ -9,7 +27,7 @@ export const cartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
-      addItem: (state, action) => {
+      addItem: (state, action:PayloadAction<CartItem>) => {
          //Логика чтобы в корзину не добавлялись пиццы с одинаковыми id
          // Нахожу пиццу с id аналогично переданным и добавляю счетчик
          const findItem = state.items.find((obj) => obj.id === action.payload.id)
@@ -28,13 +46,13 @@ export const cartSlice = createSlice({
          }, 0)
 
       },
-      minusItem: (state, action) => {
-         const findItem = state.items.find((obj) => obj.id === action.payload.id)
+      minusItem: (state, action:PayloadAction<string>) => {
+         const findItem = state.items.find((obj) => obj.id === action.payload)
          if (findItem) {
             findItem.count--
          }
       },
-      removeItem: (state, action) => {
+      removeItem: (state, action:PayloadAction<string>) => {
          state.items = state.items.filter((obj) => obj.id !== action.payload)
       },
       clearItem: (state) => {

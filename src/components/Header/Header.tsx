@@ -13,7 +13,7 @@ const Header: React.FC = () => {
    const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
 
    // Суммирую кол-ва пицц
-   const totalCount = addItems.reduce((sum: number, item: any) => {
+   const totalCount = addItems.reduce((sum: number, item) => {
       return sum + item.count
    }, 0);
    // console.log(addItems)
