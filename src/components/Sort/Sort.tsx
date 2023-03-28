@@ -1,8 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react';
+import { RootState } from '../../redux/store';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setChangeSort } from '../../redux/slices/filterSlice';
+
 
 type SortItem = {
    name: string;
@@ -24,7 +26,7 @@ const Sort = () => {
    const [isVisible, setIsVisible] = React.useState(false)
 
    // Вытаскиваю состояние из redux
-   const changeSort = useSelector((state: any) => state.filter.changeSort);
+   const changeSort = useSelector((state: RootState) => state.filter.changeSort);
    const dispatch = useDispatch();
 
    // Получаю ссылку на div элемент с классом sort
@@ -42,7 +44,7 @@ const Sort = () => {
          path: Node[]
          key: string
       }
-      if (sortRef.current && !_event.path.includes(sortRef.current) || _event.key === 'Escape') {
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
          //console.log("клик")
          setIsVisible(false);
       }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { RootState } from '../../redux/store';
 
 import logoPizza from '../../assets/img/pizza-logo.svg';
 import Search from '../Search/Search';
@@ -8,8 +9,8 @@ import Search from '../Search/Search';
 const Header: React.FC = () => {
 
    // Вытаскиваю состояние из redux
-   const addItems = useSelector((state: any) => state.cart.items);
-   const totalPrice = useSelector((state: any) => state.cart.totalPrice);
+   const addItems = useSelector((state: RootState) => state.cart.items);
+   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
 
    // Суммирую кол-ва пицц
    const totalCount = addItems.reduce((sum: number, item: any) => {

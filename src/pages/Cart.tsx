@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import CartEmpty from '../components/CartEmpty/CartEmpty';
 import CartItem from '../components/CartItem/CartItem';
 import { clearItem } from '../redux/slices/cartSlice';
+import { RootState } from '../redux/store';
 
 
 const Cart: React.FC = () => {
    // Вытаскиваю состояние из redux
-   const cartItem = useSelector((state: any) => state.cart.items);
-   const totalPrice = useSelector((state: any) => state.cart.totalPrice);
+   const cartItem = useSelector((state: RootState) => state.cart.items);
+   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
    const dispatch = useDispatch();
 
    // Суммирую общее кол-во пицц и отображаю их 

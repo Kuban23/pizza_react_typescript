@@ -9,6 +9,7 @@ import Sort from '../components/Sort/Sort'
 //import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
 import { fetchPizza } from '../redux/slices/pizzaSlice';
+import { RootState } from '../redux/store'
 
 const Home: React.FC = () => {
 
@@ -34,10 +35,10 @@ const Home: React.FC = () => {
    // const { searchValue } = React.useContext(SearchContext);
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
-   const { indexSort, changeSort, currentPage } = useSelector((state: any) => state.filter);
-   const getFetch = useSelector((state: any) => state.pizza.items);
-   const status = useSelector((state: any) => state.pizza.status);
-   const searchValue = useSelector((state: any) => state.filter.searchValue);
+   const { indexSort, changeSort, currentPage } = useSelector((state: RootState) => state.filter);
+   const getFetch = useSelector((state: RootState) => state.pizza.items);
+   const status = useSelector((state: RootState) => state.pizza.status);
+   const searchValue = useSelector((state: RootState) => state.filter.searchValue);
    const dispatch = useDispatch();
 
 
