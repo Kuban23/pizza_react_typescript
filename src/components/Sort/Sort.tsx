@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { RootState } from '../../redux/store';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setChangeSort } from '../../redux/slices/filterSlice';
+import { setChangeSort} from '../../redux/slices/filterSlice';
 
 
 type SortItem = {

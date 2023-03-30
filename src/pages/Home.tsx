@@ -9,49 +9,33 @@ import Sort from '../components/Sort/Sort'
 //import { SearchContext } from '../context';
 import { setIndexSort, setCurrentPage } from '../redux/slices/filterSlice'
 import { fetchPizza } from '../redux/slices/pizzaSlice';
-import { RootState } from '../redux/store'
+import { RootState, useAppDispatch } from '../redux/store'
 
 const Home: React.FC = () => {
-
-   // Состояние лоадинга пицц, для скелетона
-   // const [isLoading, setIsLoading] = React.useState(true)
-
-   // Состояние запроса на сервер, запрашиваю массив пицц
-   //const [getFetch, setGetFetch] = React.useState([])
-
-   // Состояние категории индекса типа сортировки пицц
-   //const [indexSort, setIndexSort] = React.useState(0);
-
-   // Состояние сортировки пицц
-   // const [changeSort, setChangeSort] = React.useState(
-   //    { name: 'популярности', sortProperty: 'rating' }
-   // );
-
-   // Состояние страниц для пагинации (mockapi не может давать данные сколько страниц осталось) 
-   // поэтому захардкожим кол-во страниц
-   // const [currentPage, setCurrentPage] = React.useState(1);
-
-   // Контекст состояния инпута пицц
-   // const { searchValue } = React.useContext(SearchContext);
 
    // Вытаскиваю состяние категорий пицц из редакса слайса
    const { indexSort, changeSort, currentPage } = useSelector((state: RootState) => state.filter);
    const getFetch = useSelector((state: RootState) => state.pizza.items);
    const status = useSelector((state: RootState) => state.pizza.status);
    const searchValue = useSelector((state: RootState) => state.filter.searchValue);
-   const dispatch = useDispatch();
-
+   const dispatch = useAppDispatch();
 
    // Запрос на БЭК
    const getPizza = async () => {
+      const category = indexSort > 0 ? `category=${indexSort}` : '';
+      const sortBy = changeSort.sortProperty.replace('-', '');
+      const order = changeSort.sortProperty.includes('-') ? 'asc' : 'desc';
+      const search = searchValue;
+
 
       dispatch(
-         //@ts-ignore
+
          fetchPizza({
-            indexSort,
-            changeSort,
-            searchValue,
-            currentPage
+            category,
+            sortBy,
+            order,
+            search,
+            currentPage: String(currentPage)
          }))
    };
 
