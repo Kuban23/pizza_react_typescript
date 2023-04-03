@@ -1,5 +1,7 @@
-import { getCartFromLocalStorage } from './../../utils/getCartFromLocalStorage';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { getCartFromLocalStorage } from './../../utils/getCartFromLocalStorage';
 
 // Типизирую item для дальнейшей передачи в стэйт 
 export type CartItem = {
@@ -13,22 +15,23 @@ export type CartItem = {
 };
 
 // Типизирую стэйт
-interface CartSliceState{
+interface CartSliceState {
    items: CartItem[],
    totalPrice: number,
 };
 
+const cartData = getCartFromLocalStorage();
 
-const initialState:CartSliceState = {
-   items: getCartFromLocalStorage(),
-   totalPrice: 0,
-}
+const initialState: CartSliceState = {
+   items: cartData.items,
+   totalPrice: cartData.totalPrice,
+};
 
 export const cartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
-      addItem: (state, action:PayloadAction<CartItem>) => {
+      addItem: (state, action: PayloadAction<CartItem>) => {
          //Логика чтобы в корзину не добавлялись пиццы с одинаковыми id
          // Нахожу пиццу с id аналогично переданным и добавляю счетчик
          const findItem = state.items.find((obj) => obj.id === action.payload.id)
@@ -42,18 +45,19 @@ export const cartSlice = createSlice({
                count: 1
             })
          }
-         state.totalPrice = state.items.reduce((sum, item) => {
-            return sum + (item.count * item.price)
-         }, 0)
+         state.totalPrice = calcTotalPrice(state.items)
+         // state.totalPrice = state.items.reduce((sum, item) => {
+         //    return sum + (item.count * item.price)
+         // }, 0)
 
       },
-      minusItem: (state, action:PayloadAction<string>) => {
+      minusItem: (state, action: PayloadAction<string>) => {
          const findItem = state.items.find((obj) => obj.id === action.payload)
          if (findItem) {
             findItem.count--
          }
       },
-      removeItem: (state, action:PayloadAction<string>) => {
+      removeItem: (state, action: PayloadAction<string>) => {
          state.items = state.items.filter((obj) => obj.id !== action.payload)
       },
       clearItem: (state) => {

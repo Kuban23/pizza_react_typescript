@@ -1,4 +1,11 @@
-export const getCartFromLocalStorage=()=>{
-   const data= localStorage.getItem('cart')
-   return data? JSON.parse(data):[];
+import { calcTotalPrice } from "./calcTotalPrice";
+
+export const getCartFromLocalStorage = () => {
+   const data = localStorage.getItem('cart')
+   const items = data ? JSON.parse(data) : [];
+   const totalPrice = calcTotalPrice(items);
+   return {
+      items,
+      totalPrice,
+   }
 };
