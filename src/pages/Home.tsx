@@ -86,7 +86,8 @@ const Home: React.FC = () => {
                indexSort={indexSort}
                setIndexSort={onChangeCategory}
             />
-            <Sort />
+            <Sort            
+            />
          </div>
          <h2 className="content__title">Все пиццы</h2>
          {/* Отрисовка пицц в случае ошибки и успеха */}

@@ -1,3 +1,4 @@
+import { getCartFromLocalStorage } from './../../utils/getCartFromLocalStorage';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 // Типизирую item для дальнейшей передачи в стэйт 
@@ -19,7 +20,7 @@ interface CartSliceState{
 
 
 const initialState:CartSliceState = {
-   items: [],
+   items: getCartFromLocalStorage(),
    totalPrice: 0,
 }
 

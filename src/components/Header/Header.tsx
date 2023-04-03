@@ -8,6 +8,8 @@ import Search from '../Search/Search';
 
 const Header: React.FC = () => {
 
+   const isMounted = React.useRef(false);
+
    // Вытаскиваю состояние из redux
    const addItems = useSelector((state: RootState) => state.cart.items);
    const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
@@ -22,6 +24,15 @@ const Header: React.FC = () => {
    // С помощью Хука useLocation определяю путь
    const location = useLocation();
    // console.log(location)
+
+   React.useEffect(() => {
+      if (isMounted.current) {
+         const json = JSON.stringify(addItems)
+         localStorage.setItem('cart', json);
+      }
+      isMounted.current = true;
+   }, [addItems]);
+
 
    return (
       <div className="header">

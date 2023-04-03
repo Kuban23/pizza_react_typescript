@@ -12,9 +12,7 @@ type FetchPizzaArgs = {
 // Реализация запроса на БЭК с помощью асинхронного экшена
 export const fetchPizza = createAsyncThunk('pizza/fetchPizzaById', async (params: FetchPizzaArgs) => {
    const { category, sortBy, order, search, currentPage } = params;
-   const res = await axios.get(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${category}&sortBy=${sortBy}
-   &order=${order}&search=${search}&page=${currentPage}&limit=4`)
-
+   const res = await axios.get<Pizza[]>(`https://63e1085559bb472a742f0ab0.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}&search=${search}&page=${currentPage}&limit=4`)
    return res.data as Pizza[]
 })
 
