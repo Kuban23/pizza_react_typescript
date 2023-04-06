@@ -26,10 +26,7 @@ const Home: React.FC = () => {
       const sortBy = changeSort.sortProperty.replace('-', '');
       const order = changeSort.sortProperty.includes('-') ? 'asc' : 'desc';
       const search = searchValue;
-
-
       dispatch(
-
          fetchPizza({
             category,
             sortBy,
@@ -38,7 +35,6 @@ const Home: React.FC = () => {
             currentPage: String(currentPage)
          }))
    };
-
 
    // Отслеживаю запрос для загрузки пицц с сервера
    React.useEffect(() => {
