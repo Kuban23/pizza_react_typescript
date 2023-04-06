@@ -1,23 +1,24 @@
-.root {
-   text-align: center;
-   padding: 100px;
-   margin: 0 auto;
-   max-width: 750px;
+.notFound {
+   display: flex;
+   flex-direction: column;
 
-   span {
-      font-size: 68px;
+   .root {
+      text-align: center;
+      padding: 100px;
+
+
+      span {
+         font-size: 68px;
+      }
    }
-}
 
-.description {
-   font-size: 18px;
-   margin-bottom: 50px;
-}
+   .description {
+      font-size: 18px;
+   }
 
-.button--black {
-   padding: 12px 0 14px;
-   width: 230px;
-   margin: 0 auto;
-   font-weight: 600;
-   font-size: 18px;
+   .notFoundBtn {
+      margin: 0 auto;
+   }
+
+
 }
